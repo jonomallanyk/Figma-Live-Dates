@@ -1,5 +1,3 @@
-// This plugin creates 5 rectangles on the screen.
-// const numberOfRectangles = 5;
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -9,74 +7,57 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-// This file holds the main code for the plugins. It has access to the *document*.
-// You can access browser APIs such as the network by creating a UI which contains
-// a full browser environment (see documentation).
-// const nodes: SceneNode[] = [];
-// for (let i = 0; i < numberOfRectangles; i++) {
-//   const rect = figma.createRectangle();
-//   rect.x = i * 150;
-//   rect.fills = [{ type: "SOLID", color: { r: 1, g: 0.5, b: 0 } }];
-//   figma.currentPage.appendChild(rect);
-//   nodes.push(rect);
-// }
-// figma.currentPage.selection = nodes;
-// figma.viewport.scrollAndZoomIntoView(nodes);
-// await figma.loadFontAsync({ family: "Clarkson", style: "Medium" });
-// await figma.loadFontAsync({ family: "Clarkson", style: "BookProduct" });
-const node = figma.currentPage.selection[0];
-// const dateNodes = node.findOne(async (node) => {
-//   await figma.loadFontAsync({ family: "Clarkson", style: "Medium" });
-//   await figma.loadFontAsync({ family: "Clarkson", style: "BookProduct" });
-//   node.characters === "Website expires on Jul 4, 2020. Subscribe";
-//   setDate(node);
-//   // console.log(node);
-// });
-// const loadFonts = async () => {
-//   await figma.loadFontAsync({ family: "Clarkson", style: "Medium" });
-//   await figma.loadFontAsync({ family: "Clarkson", style: "BookProduct" });
-// };
 const fetchNodeByName = (name) => __awaiter(this, void 0, void 0, function* () {
     // await figma.loadFontAsync({ family: "Clarkson", style: "Medium" });
     yield figma.loadFontAsync({ family: "Clarkson", style: "BookProduct" });
     console.log("loaded font");
     const textNode = figma.root.findOne((n) => n.name === name);
-    switch (name) {
-        case "Date Expires":
-            textNode.characters = "Website expires on Aug 15, 2020. Subscribe";
-            break;
-        case "Date Renews":
-            textNode.characters = "Website renews on Aug 15, 2020";
-            break;
-        default:
-            console.log("No matching layers");
-    }
-    console.log("Split string:", textNode.characters.match(/\w+|\s+|[^\s\w]+/g));
+    textNode.characters = replaceDateInStr(textNode.characters);
 });
-// TODO:
-// Fetch strings based on layer name
-// Split strings that contain dates, insert new date
-// Get current date
-// Calculate date 10 days out
-const parseString = (str) => {
-    str;
-};
-const splitAtMonthName = (str) => {
-    let words = str.split(" ");
-    console.log("Split string", words);
-};
 const newDate = () => {
     let today = new Date();
     // Add 10 days to today's date
     today.setDate(today.getDate() + 10);
     const splitDate = today.toDateString().split(" ");
-    const formattedDate = splitDate[1] + " " + splitDate[2] + ", " + splitDate[3];
-    // const dropDayAndRejoin = splitDate.slice(1).toString();
-    console.log("10 days from now is:", formattedDate);
+    // Format date
+    return splitDate[1] + " " + splitDate[2] + ", " + splitDate[3];
+};
+const replaceDateInStr = (str) => {
+    let splitStr = str.match(/\w+|\s+|[^\s\w]+/g);
+    // Check for presence of month, get position in array
+    // months.map((m) => hasDate(splitStr, m));
+    if (str.includes("Jan") ||
+        str.includes("Feb") ||
+        str.includes("Mar") ||
+        str.includes("Apr") ||
+        str.includes("May") ||
+        str.includes("Jun") ||
+        str.includes("Jul") ||
+        str.includes("Aug") ||
+        str.includes("Sep") ||
+        str.includes("Oct") ||
+        str.includes("Nov") ||
+        str.includes("Dec")) {
+        const newStr = replaceStr(splitStr, splitStr.indexOf("Jul"));
+        console.log("New string:", newStr);
+        return newStr;
+    }
+    else {
+        console.log("No month in string");
+        return str;
+    }
+};
+const replaceStr = (str, index) => {
+    // console.log("Split str", str);
+    // Get strings before and after date
+    let preString = str.slice(0, index).join("");
+    let postString = str.slice(index + 6).join("");
+    let date = newDate();
+    // Rebuild string with new date
+    return preString + date + postString;
 };
 fetchNodeByName("Date Expires");
 fetchNodeByName("Date Renews");
-// fetchNodeByName("Website expires on Jul 4, 2020. Subscribe");
 // Make sure to close the plugin when you're done. Otherwise the plugin will
 // keep running, which shows the cancel button at the bottom of the screen.
 figma.closePlugin();
