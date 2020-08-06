@@ -20,14 +20,18 @@ const fetchNodesByName = async () => {
 const getArgumentFromStr = (str) => {
   let splitStr = str.split("");
 
-  let dropStart = str.slice(9);
-  let dropEnd = dropStart.slice(0, -1);
+  if (splitStr[9] == ")") {
+    return 0;
+  } else {
+    let dropStart = str.slice(9);
+    let dropEnd = dropStart.slice(0, -1);
 
-  let arg = parseInt(dropEnd, 10);
+    let arg = parseInt(dropEnd, 10);
 
-  console.log("Arg:", arg);
+    console.log("Arg:", arg);
 
-  return arg;
+    return arg;
+  }
 };
 
 const newDate = (daysAhead) => {

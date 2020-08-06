@@ -18,11 +18,16 @@ const fetchNodesByName = () => __awaiter(this, void 0, void 0, function* () {
 });
 const getArgumentFromStr = (str) => {
     let splitStr = str.split("");
-    let dropStart = str.slice(9);
-    let dropEnd = dropStart.slice(0, -1);
-    let arg = parseInt(dropEnd, 10);
-    console.log("Arg:", arg);
-    return arg;
+    if (splitStr[9] == ")") {
+        return 0;
+    }
+    else {
+        let dropStart = str.slice(9);
+        let dropEnd = dropStart.slice(0, -1);
+        let arg = parseInt(dropEnd, 10);
+        console.log("Arg:", arg);
+        return arg;
+    }
 };
 const newDate = (daysAhead) => {
     let today = new Date();
