@@ -26,16 +26,29 @@ const getArgumentFromStr = (str) => {
 };
 const newDate = (daysAhead) => {
     let today = new Date();
-    // Add 10 days to today's date
+    const formatDay = (day) => {
+        if (day.startsWith("0")) {
+            return day.slice(1);
+        }
+        else {
+            return day;
+        }
+    };
+    // Add (daysAhead) days to today's date
     today.setDate(today.getDate() + daysAhead);
     const splitDate = today.toDateString().split(" ");
+    const month = splitDate[1];
+    const day = formatDay(splitDate[2]);
+    const year = splitDate[3];
+    // If day starts with 0, drop it.
     // Format date
-    return splitDate[1] + " " + splitDate[2] + ", " + splitDate[3];
+    return month + " " + day + ", " + year;
 };
 const replaceDateInStr = (str, daysAhead) => {
     let splitStr = str.match(/\w+|\s+|[^\s\w]+/g);
     // Check for presence of month, get position in array
     // months.map((m) => hasDate(splitStr, m));
+    // TODO: Replace this with something non-brittle.
     if (str.includes("Jan")) {
         const newStr = replaceStr(splitStr, splitStr.indexOf("Jan"), daysAhead);
         return newStr;
@@ -99,7 +112,6 @@ const replaceStr = (str, index, daysAhead) => {
     return preString + date + postString;
 };
 fetchNodesByName();
-// fetchNodeByName("Date Renews");
 // Make sure to close the plugin when you're done. Otherwise the plugin will
 // keep running, which shows the cancel button at the bottom of the screen.
 figma.closePlugin();
