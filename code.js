@@ -51,8 +51,29 @@ const fetchNodeByName = (name) => __awaiter(this, void 0, void 0, function* () {
         default:
             console.log("No matching layers");
     }
-    console.log("Updated node string:", textNode.characters);
+    console.log("Split string:", textNode.characters.match(/\w+|\s+|[^\s\w]+/g));
 });
+// TODO:
+// Fetch strings based on layer name
+// Split strings that contain dates, insert new date
+// Get current date
+// Calculate date 10 days out
+const parseString = (str) => {
+    str;
+};
+const splitAtMonthName = (str) => {
+    let words = str.split(" ");
+    console.log("Split string", words);
+};
+const newDate = () => {
+    let today = new Date();
+    // Add 10 days to today's date
+    today.setDate(today.getDate() + 10);
+    const splitDate = today.toDateString().split(" ");
+    const formattedDate = splitDate[1] + " " + splitDate[2] + ", " + splitDate[3];
+    // const dropDayAndRejoin = splitDate.slice(1).toString();
+    console.log("10 days from now is:", formattedDate);
+};
 fetchNodeByName("Date Expires");
 fetchNodeByName("Date Renews");
 // fetchNodeByName("Website expires on Jul 4, 2020. Subscribe");
