@@ -1,11 +1,15 @@
-const fetchNodeByName = async (name) => {
+const fetchNodesByName = async (name) => {
   // await figma.loadFontAsync({ family: "Clarkson", style: "Medium" });
   await figma.loadFontAsync({ family: "Clarkson", style: "BookProduct" });
-  console.log("loaded font");
+  // console.log("loaded font");
 
-  const textNode = figma.root.findOne((n) => n.name === name);
+  // const textNode = figma.root.findOne((n) => n.name === name);
 
-  textNode.characters = replaceDateInStr(textNode.characters);
+  // Find all nodes
+  const nodes = figma.currentPage.findAll((n) => n.name === name);
+
+  // Replace each nodes string
+  nodes.map((n) => (n.characters = replaceDateInStr(n.characters)));
 };
 
 const newDate = () => {
@@ -26,23 +30,52 @@ const replaceDateInStr = (str) => {
   // Check for presence of month, get position in array
   // months.map((m) => hasDate(splitStr, m));
 
-  if (
-    str.includes("Jan") ||
-    str.includes("Feb") ||
-    str.includes("Mar") ||
-    str.includes("Apr") ||
-    str.includes("May") ||
-    str.includes("Jun") ||
-    str.includes("Jul") ||
-    str.includes("Aug") ||
-    str.includes("Sep") ||
-    str.includes("Oct") ||
-    str.includes("Nov") ||
-    str.includes("Dec")
-  ) {
+  if (str.includes("Jan")) {
+    const newStr = replaceStr(splitStr, splitStr.indexOf("Jan"));
+
+    return newStr;
+  } else if (str.includes("Feb")) {
+    const newStr = replaceStr(splitStr, splitStr.indexOf("Feb"));
+
+    return newStr;
+  } else if (str.includes("Mar")) {
+    const newStr = replaceStr(splitStr, splitStr.indexOf("Mar"));
+
+    return newStr;
+  } else if (str.includes("Apr")) {
+    const newStr = replaceStr(splitStr, splitStr.indexOf("Apr"));
+
+    return newStr;
+  } else if (str.includes("May")) {
+    const newStr = replaceStr(splitStr, splitStr.indexOf("May"));
+
+    return newStr;
+  } else if (str.includes("Jun")) {
+    const newStr = replaceStr(splitStr, splitStr.indexOf("Jun"));
+
+    return newStr;
+  } else if (str.includes("Jul")) {
     const newStr = replaceStr(splitStr, splitStr.indexOf("Jul"));
 
-    console.log("New string:", newStr);
+    return newStr;
+  } else if (str.includes("Aug")) {
+    const newStr = replaceStr(splitStr, splitStr.indexOf("Aug"));
+
+    return newStr;
+  } else if (str.includes("Sep")) {
+    const newStr = replaceStr(splitStr, splitStr.indexOf("Sep"));
+
+    return newStr;
+  } else if (str.includes("Oct")) {
+    const newStr = replaceStr(splitStr, splitStr.indexOf("Oct"));
+
+    return newStr;
+  } else if (str.includes("Nov")) {
+    const newStr = replaceStr(splitStr, splitStr.indexOf("Nov"));
+
+    return newStr;
+  } else if (str.includes("Dec")) {
+    const newStr = replaceStr(splitStr, splitStr.indexOf("Dec"));
 
     return newStr;
   } else {
@@ -65,8 +98,8 @@ const replaceStr = (str: Array<String>, index) => {
   return preString + date + postString;
 };
 
-fetchNodeByName("Date Expires");
-fetchNodeByName("Date Renews");
+fetchNodesByName("Date (Live)");
+// fetchNodeByName("Date Renews");
 
 // Make sure to close the plugin when you're done. Otherwise the plugin will
 // keep running, which shows the cancel button at the bottom of the screen.
