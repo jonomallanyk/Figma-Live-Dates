@@ -36,7 +36,6 @@ const node = figma.currentPage.selection[0];
 //   await figma.loadFontAsync({ family: "Clarkson", style: "Medium" });
 //   await figma.loadFontAsync({ family: "Clarkson", style: "BookProduct" });
 // };
-// loadFonts();
 const fetchNodeByName = (name) => __awaiter(this, void 0, void 0, function* () {
     // await figma.loadFontAsync({ family: "Clarkson", style: "Medium" });
     yield figma.loadFontAsync({ family: "Clarkson", style: "BookProduct" });
@@ -57,15 +56,6 @@ const fetchNodeByName = (name) => __awaiter(this, void 0, void 0, function* () {
 fetchNodeByName("Date Expires");
 fetchNodeByName("Date Renews");
 // fetchNodeByName("Website expires on Jul 4, 2020. Subscribe");
-// const setDate = () => {
-//   // "Aug 15, 2020"
-//   "Website expires on Aug 15, 2020. Subscribe";
-// };
-// const setDate = (node) => {
-//   node.characters = "Replacement Date";
-// };
-// console.log("Got selection", node);
-// console.log("Got date nodes", dateNodes);
 // Make sure to close the plugin when you're done. Otherwise the plugin will
 // keep running, which shows the cancel button at the bottom of the screen.
 figma.closePlugin();
