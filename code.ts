@@ -28,7 +28,7 @@ const getArgumentFromStr = (str) => {
 
     let arg = parseInt(dropEnd, 10);
 
-    console.log("Arg:", arg);
+    // console.log("Arg:", arg);
 
     return arg;
   }
@@ -65,7 +65,7 @@ const replaceDateInStr = (str, daysAhead) => {
   // Check for presence of month, get position in array
   // months.map((m) => hasDate(splitStr, m));
 
-  // TODO: Replace this with something non-brittle.
+  // TODO: Replace this with something non-brittle. I had issues with a mapping function that made this redundant.
   if (str.includes("Jan")) {
     const newStr = replaceStr(splitStr, splitStr.indexOf("Jan"), daysAhead);
 
