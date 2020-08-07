@@ -2,8 +2,6 @@ const fetchNodesByName = async () => {
   // await figma.loadFontAsync({ family: "Clarkson", style: "Medium" });
   await figma.loadFontAsync({ family: "Clarkson", style: "BookProduct" });
 
-  // const textNode = figma.root.findOne((n) => n.name === name);
-
   // Find all nodes
   const nodes = figma.currentPage.findAll((n) => n.name.includes("LiveDate"));
 
@@ -15,6 +13,9 @@ const fetchNodesByName = async () => {
         getArgumentFromStr(n.name)
       ))
   );
+
+  // Let the user know how many dates have been updated
+  figma.notify(nodes.length + " dates have been updated");
 };
 
 const getArgumentFromStr = (str) => {
@@ -28,8 +29,6 @@ const getArgumentFromStr = (str) => {
 
     let arg = parseInt(dropEnd, 10);
 
-    // console.log("Arg:", arg);
-
     return arg;
   }
 };
@@ -37,6 +36,7 @@ const getArgumentFromStr = (str) => {
 const newDate = (daysAhead) => {
   let today = new Date();
 
+  // If day starts with 0, drop it.
   const formatDay = (day) => {
     if (day.startsWith("0")) {
       return day.slice(1);
@@ -53,17 +53,12 @@ const newDate = (daysAhead) => {
   const day = formatDay(splitDate[2]);
   const year = splitDate[3];
 
-  // If day starts with 0, drop it.
-
-  // Format date
+  // Format date to Mmm (D)D, YYYY
   return month + " " + day + ", " + year;
 };
 
 const replaceDateInStr = (str, daysAhead) => {
   let splitStr = str.match(/\w+|\s+|[^\s\w]+/g);
-
-  // Check for presence of month, get position in array
-  // months.map((m) => hasDate(splitStr, m));
 
   // TODO: Replace this with something non-brittle. I had issues with a mapping function that made this redundant.
   if (str.includes("Jan")) {
@@ -122,8 +117,6 @@ const replaceDateInStr = (str, daysAhead) => {
 };
 
 const replaceStr = (str: Array<String>, index, daysAhead) => {
-  // console.log("Split str", str);
-
   // Get strings before and after date
   let preString = str.slice(0, index).join("");
   let postString = str.slice(index + 6).join("");
