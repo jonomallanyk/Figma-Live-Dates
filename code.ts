@@ -19,17 +19,19 @@ const fetchNodesByName = async () => {
 };
 
 const getArgumentFromStr = (str) => {
+  // Extract argument from LiveDate(arg)
   let splitStr = str.split("");
 
+  // Check to see in an argument was provided
   if (splitStr[9] == ")") {
     return 0;
   } else {
+    // Drop characters up to and including the opening parentheses
     let dropStart = str.slice(9);
+    // Drop closing parentheses
     let dropEnd = dropStart.slice(0, -1);
 
-    let arg = parseInt(dropEnd, 10);
-
-    return arg;
+    return parseInt(dropEnd, 10);
   }
 };
 
@@ -45,10 +47,12 @@ const newDate = (daysAhead) => {
     }
   };
 
-  // Add (daysAhead) days to today's date
+  // Add (daysAhead) days to today's date. Returns Day Mmm DD, YYYY
   today.setDate(today.getDate() + daysAhead);
 
+  // Split string into [Day, Month, Dd, Year]
   const splitDate = today.toDateString().split(" ");
+
   const month = splitDate[1];
   const day = formatDay(splitDate[2]);
   const year = splitDate[3];
@@ -60,55 +64,32 @@ const newDate = (daysAhead) => {
 const replaceDateInStr = (str, daysAhead) => {
   let splitStr = str.match(/\w+|\s+|[^\s\w]+/g);
 
+  // Check for location of date in string
   // TODO: Replace this with something non-brittle. I had issues with a mapping function that made this redundant.
   if (str.includes("Jan")) {
-    const newStr = replaceStr(splitStr, splitStr.indexOf("Jan"), daysAhead);
-
-    return newStr;
+    return replaceStr(splitStr, splitStr.indexOf("Jan"), daysAhead);
   } else if (str.includes("Feb")) {
-    const newStr = replaceStr(splitStr, splitStr.indexOf("Feb"), daysAhead);
-
-    return newStr;
+    return replaceStr(splitStr, splitStr.indexOf("Feb"), daysAhead);
   } else if (str.includes("Mar")) {
-    const newStr = replaceStr(splitStr, splitStr.indexOf("Mar"), daysAhead);
-
-    return newStr;
+    return replaceStr(splitStr, splitStr.indexOf("Mar"), daysAhead);
   } else if (str.includes("Apr")) {
-    const newStr = replaceStr(splitStr, splitStr.indexOf("Apr"), daysAhead);
-
-    return newStr;
+    return replaceStr(splitStr, splitStr.indexOf("Apr"), daysAhead);
   } else if (str.includes("May")) {
-    const newStr = replaceStr(splitStr, splitStr.indexOf("May"), daysAhead);
-
-    return newStr;
+    return replaceStr(splitStr, splitStr.indexOf("May"), daysAhead);
   } else if (str.includes("Jun")) {
-    const newStr = replaceStr(splitStr, splitStr.indexOf("Jun"), daysAhead);
-
-    return newStr;
+    return replaceStr(splitStr, splitStr.indexOf("Jun"), daysAhead);
   } else if (str.includes("Jul")) {
-    const newStr = replaceStr(splitStr, splitStr.indexOf("Jul"), daysAhead);
-
-    return newStr;
+    return replaceStr(splitStr, splitStr.indexOf("Jul"), daysAhead);
   } else if (str.includes("Aug")) {
-    const newStr = replaceStr(splitStr, splitStr.indexOf("Aug"), daysAhead);
-
-    return newStr;
+    return replaceStr(splitStr, splitStr.indexOf("Aug"), daysAhead);
   } else if (str.includes("Sep")) {
-    const newStr = replaceStr(splitStr, splitStr.indexOf("Sep"), daysAhead);
-
-    return newStr;
+    return replaceStr(splitStr, splitStr.indexOf("Sep"), daysAhead);
   } else if (str.includes("Oct")) {
-    const newStr = replaceStr(splitStr, splitStr.indexOf("Oct"), daysAhead);
-
-    return newStr;
+    return replaceStr(splitStr, splitStr.indexOf("Oct"), daysAhead);
   } else if (str.includes("Nov")) {
-    const newStr = replaceStr(splitStr, splitStr.indexOf("Nov"), daysAhead);
-
-    return newStr;
+    return replaceStr(splitStr, splitStr.indexOf("Nov"), daysAhead);
   } else if (str.includes("Dec")) {
-    const newStr = replaceStr(splitStr, splitStr.indexOf("Dec"), daysAhead);
-
-    return newStr;
+    return replaceStr(splitStr, splitStr.indexOf("Dec"), daysAhead);
   } else {
     console.log("No month in string");
 
