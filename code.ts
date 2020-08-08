@@ -20,16 +20,17 @@ const fetchNodesByName = async () => {
   figma.notify(nodes.length + " dates have been updated");
 };
 
+// Receives a string like @Date(arg), returns arg as an Int
 const getArgumentFromStr = (str) => {
-  // Extract argument from LiveDate(arg)
   let splitStr = str.split("");
 
+  // @ D a t e ( 1 0 )
   // Check to see in an argument was provided
-  if (splitStr[7] == ")") {
+  if (splitStr[6] == ")") {
     return 0;
   } else {
     // Drop characters up to and including the opening parentheses
-    let dropStart = str.slice(7);
+    let dropStart = str.slice(6);
     // Drop closing parentheses
     let dropEnd = dropStart.slice(0, -1);
 
@@ -114,4 +115,9 @@ fetchNodesByName();
 
 // Make sure to close the plugin when you're done. Otherwise the plugin will
 // keep running, which shows the cancel button at the bottom of the screen.
-figma.closePlugin();
+// figma.closePlugin();
+
+module.exports = {
+  getArgumentFromStr: getArgumentFromStr,
+  newDate: newDate,
+};

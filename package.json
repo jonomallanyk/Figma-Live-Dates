@@ -4,11 +4,13 @@
   "description": "Your Figma Plugin",
   "main": "code.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "test": "jest"
   },
   "author": "",
   "license": "",
   "devDependencies": {
+    "@figma/plugin-typings": "^1.15.0",
     "jest": "^26.2.2"
   }
 }
