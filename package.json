@@ -7,5 +7,8 @@
     "build": "tsc -p tsconfig.json"
   },
   "author": "",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "jest": "^26.2.2"
+  }
 }
