@@ -3,7 +3,9 @@ const fetchNodesByName = async () => {
   await figma.loadFontAsync({ family: "Clarkson", style: "BookProduct" });
 
   // Find all nodes
-  const nodes = figma.currentPage.findAll((n) => n.name.includes("LiveDate"));
+  const nodes = figma.currentPage.findAll((n) => n.name.includes("@Date"));
+
+  // nodes.map((n) => console.log(n.characters, n.textDecoration));
 
   // Replace each nodes string
   nodes.map(
@@ -23,11 +25,11 @@ const getArgumentFromStr = (str) => {
   let splitStr = str.split("");
 
   // Check to see in an argument was provided
-  if (splitStr[9] == ")") {
+  if (splitStr[7] == ")") {
     return 0;
   } else {
     // Drop characters up to and including the opening parentheses
-    let dropStart = str.slice(9);
+    let dropStart = str.slice(7);
     // Drop closing parentheses
     let dropEnd = dropStart.slice(0, -1);
 
