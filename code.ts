@@ -21,7 +21,7 @@ const fetchNodesByName = async () => {
 };
 
 // Receives a string like @Date(arg), returns arg as an Int
-const getArgumentFromStr = (str) => {
+const getArgumentFromStr = (str: string) => {
   let splitStr = str.split("");
 
   // @ D a t e ( 1 0 )
@@ -38,9 +38,7 @@ const getArgumentFromStr = (str) => {
   }
 };
 
-const newDate = (daysAhead) => {
-  let today = new Date();
-
+const newDate = (today, daysAhead: number) => {
   // If day starts with 0, drop it.
   const formatDay = (day) => {
     if (day.startsWith("0")) {
@@ -64,7 +62,7 @@ const newDate = (daysAhead) => {
   return month + " " + day + ", " + year;
 };
 
-const replaceDateInStr = (str, daysAhead) => {
+const replaceDateInStr = (str: string, daysAhead: number) => {
   let splitStr = str.match(/\w+|\s+|[^\s\w]+/g);
 
   // Check for location of date in string
@@ -100,12 +98,16 @@ const replaceDateInStr = (str, daysAhead) => {
   }
 };
 
-const replaceStr = (str: Array<String>, index, daysAhead) => {
+const replaceStr = (
+  str: Array<string>,
+  monthPositionInList: number,
+  daysAhead: number
+) => {
   // Get strings before and after date
-  let preString = str.slice(0, index).join("");
-  let postString = str.slice(index + 6).join("");
+  let preString = str.slice(0, monthPositionInList).join("");
+  let postString = str.slice(monthPositionInList + 6).join("");
 
-  let date = newDate(daysAhead);
+  let date = newDate(new Date(), daysAhead);
 
   // Rebuild string with new date
   return preString + date + postString;
@@ -115,9 +117,9 @@ fetchNodesByName();
 
 // Make sure to close the plugin when you're done. Otherwise the plugin will
 // keep running, which shows the cancel button at the bottom of the screen.
-// figma.closePlugin();
+figma.closePlugin();
 
-module.exports = {
-  getArgumentFromStr: getArgumentFromStr,
-  newDate: newDate,
-};
+// module.exports = {
+//   getArgumentFromStr: getArgumentFromStr,
+//   newDate: newDate,
+// };
