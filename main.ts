@@ -38,30 +38,6 @@ const getArgumentFromStr = (str: string) => {
   }
 };
 
-const newDate = (today, daysAhead: number) => {
-  // If day starts with 0, drop it.
-  const formatDay = (day) => {
-    if (day.startsWith("0")) {
-      return day.slice(1);
-    } else {
-      return day;
-    }
-  };
-
-  // Add (daysAhead) days to today's date. Returns Day Mmm DD, YYYY
-  today.setDate(today.getDate() + daysAhead);
-
-  // Split string into [Day, Month, Dd, Year]
-  const splitDate = today.toDateString().split(" ");
-
-  const month = splitDate[1];
-  const day = formatDay(splitDate[2]);
-  const year = splitDate[3];
-
-  // Format date to Mmm (D)D, YYYY
-  return month + " " + day + ", " + year;
-};
-
 const replaceDateInStr = (str: string, daysAhead: number) => {
   let splitStr = str.match(/\w+|\s+|[^\s\w]+/g);
 
@@ -111,6 +87,30 @@ const replaceStr = (
 
   // Rebuild string with new date
   return preString + date + postString;
+};
+
+const newDate = (today, daysAhead: number) => {
+  // If day starts with 0, drop it.
+  const formatDay = (day) => {
+    if (day.startsWith("0")) {
+      return day.slice(1);
+    } else {
+      return day;
+    }
+  };
+
+  // Add (daysAhead) days to today's date. Returns Day Mmm DD, YYYY
+  today.setDate(today.getDate() + daysAhead);
+
+  // Split string into [Day, Month, Dd, Year]
+  const splitDate = today.toDateString().split(" ");
+
+  const month = splitDate[1];
+  const day = formatDay(splitDate[2]);
+  const year = splitDate[3];
+
+  // Format date to Mmm (D)D, YYYY
+  return month + " " + day + ", " + year;
 };
 
 fetchNodesByName();
