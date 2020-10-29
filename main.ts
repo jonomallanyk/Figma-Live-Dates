@@ -74,6 +74,11 @@ const replaceDateInStr = (str: string, daysAhead: number) => {
   }
 };
 
+// const findMonthInString = (str: string) => {
+
+//   return month;
+// }
+
 const replaceStr = (
   str: Array<string>,
   monthPositionInList: number,
@@ -83,13 +88,13 @@ const replaceStr = (
   let preString = str.slice(0, monthPositionInList).join("");
   let postString = str.slice(monthPositionInList + 6).join("");
 
-  let date = newDate(new Date(), daysAhead);
+  let date = modifyDateBy(new Date(), daysAhead);
 
   // Rebuild string with new date
   return preString + date + postString;
 };
 
-const newDate = (today, daysAhead: number) => {
+const modifyDateBy = (today, daysAhead: number) => {
   // If day starts with 0, drop it.
   const formatDay = (day) => {
     if (day.startsWith("0")) {
@@ -121,5 +126,5 @@ figma.closePlugin();
 
 // module.exports = {
 //   getArgumentFromStr: getArgumentFromStr,
-//   newDate: newDate,
+//   modifyDateBy: modifyDateBy,
 // };
